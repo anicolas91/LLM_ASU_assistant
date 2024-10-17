@@ -36,3 +36,14 @@ This project implements a **Retrieval-Augmented Generation (RAG)** system to enh
     ```bash
     OPENAI_API_KEY=your-openai-api-key-here
     ```
+
+### Running it
+basically run the main jupyter file:
+```bash
+jupyter notebook 01_rag_flow.ipynb
+```
+
+## Evaluation
+To have a look at the code that is evaluation the system, you can check the latter portion in [01_rag_flow.ipynb](01_rag_flow.ipynb).
+
+
