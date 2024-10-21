@@ -69,6 +69,10 @@ Turns out, there are multiple reasons for the question boost value to be <1:
 - search engine sensitivity: maybe the minsearch engine is too sensitive to boost values and it may miss subtle but relevant matches if the value is too high.
 
 
+## RAG flow
+We are going to use the cosine similarity metric to evaluate the performance of our RAG flow given different openAI models.
+
+This is WIP.
 
 
 
