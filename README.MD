@@ -50,7 +50,7 @@ We are basically using the following for our RAG:
 - knowledge base: in-house search engine 'minsearch' fitted to ASU online FAQs.
 - LLM: openAI model such as gpt-4o-mini.
 
-## Retrieval
+### Retrieval
 For the basic approach, that is, not using any boosting when using minsearch, we get the following metrics:
 - Hit rate: 0.74
 - Mean Reciprocal Rank: 0.47
@@ -59,7 +59,7 @@ Using hyperopt, we optimize the boost values so that question gets boosted by 0.
 - Hit rate: 0.94
 - Mean Reciprocal Rank: 0.77
 
-### Interesting notes about optimal boost values being <1.
+#### Interesting notes about optimal boost values being <1.
 We can notice that hyperopt has found a boost on the question to be ~0.2, which is a tad counterintuitive as one would figure the actual question would be of significant importance to get a good response in our search engine.
 
 Turns out, there are multiple reasons for the question boost value to be <1:
@@ -69,13 +69,17 @@ Turns out, there are multiple reasons for the question boost value to be <1:
 - search engine sensitivity: maybe the minsearch engine is too sensitive to boost values and it may miss subtle but relevant matches if the value is too high.
 
 
-## RAG flow
-We are going to use the cosine similarity metric to evaluate the performance of our RAG flow given different openAI models.
+### RAG flow
+We used the cosine similarity metric to evaluate the performance of our RAG flow given different openAI models.
 
-This is WIP.
+We evaluated 256 ground truths using both gpt-4o-mini and gpt-4o.
 
+The results were as follows:
 
+![cosine-similarity](cosine-similarity-image.png)
 
+We see that the performance is relatively equivalent, with gpt-4o performing slightly better.
 
-  
+In the interest of economy we will proceed with gpt-4o mini, since that one is ~10x cheaper than gpt-4o.
 
+## Monitoring
