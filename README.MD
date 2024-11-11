@@ -37,11 +37,43 @@ This project implements a **Retrieval-Augmented Generation (RAG)** system to enh
     OPENAI_API_KEY=your-openai-api-key-here
     ```
 
+
 ### Running it
-basically run the main jupyter file:
+1. To run the Flask application, simply call:
+   ```bash
+   python asu_online_assistant/app.py
+   ```
+
+
+### Misc
+To view/debug the whole pipeline for experimentation, basically run the main jupyter file:
 ```bash
-jupyter notebook 01_rag_flow.ipynb
+jupyter notebook notebooks/01_rag_flow.ipynb
 ```
+
+## Code
+
+The code for the application is inside the [asu_online_assistant](/asu_online_assistant/) folder.
+
+It contains the following documents:
+- app.py - the Flask API, the main entrypoint to the application
+- ingest.py - loading the data into the knowledge base
+- rag.py - the main RAG logic for building the retrieving the data and building the prompt
+- minsearch.py - an in-memory search engine
+
+
+### Interface
+
+We are using Flask for serving the application as an API.
+This API can then be called to retrieve a RAG answer given a question fed through front end.
+
+### Ingestion
+
+The ingestion script is in [ingest.py](asu_online_assistant/ingest.py).
+
+Since we use an in-memory database, minsearch, as our knowledge base, we run the ingestion script at the startup of the application.
+
+The ingestion script is executed inside [rag.py](asu_online_assistant/rag.py) when we import it.
 
 ## Evaluation
 To have a look at the code that is evaluating the system, you can check the latter portion in [01_rag_flow.ipynb](01_rag_flow.ipynb).
