@@ -83,3 +83,4 @@ We see that the performance is relatively equivalent, with gpt-4o performing sli
 In the interest of economy we will proceed with gpt-4o mini, since that one is ~10x cheaper than gpt-4o.
 
 ## Monitoring
+
