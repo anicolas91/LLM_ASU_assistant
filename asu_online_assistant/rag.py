@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 # setup API key
-load_dotenv('../.envrc') 
+load_dotenv('.envrc') 
 openai_api_key = os.getenv('OPENAI_API_KEY')
 
 # start an openAI client

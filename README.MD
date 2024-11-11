@@ -6,12 +6,21 @@ ASU Online provides a comprehensive set of FAQs, but users often struggle to fin
 ### Proposed Solution
 This project implements a **Retrieval-Augmented Generation (RAG)** system to enhance the user experience by allowing users to query ASU Online’s FAQs and receive accurate, concise responses. The system uses a search engine to index the FAQs, retrieves the top 10 relevant results, and then generates a response using a lightweight LLM (gpt-4o-mini and similar).
 
+### Dataset
+The dataset used for this ASU online assistant comes from the [FAQ website](https://asuonline.asu.edu/about-us/faq). The data was scrubbed and cleaned using the jupyter file [00_cleaning_json.ipynb](notebooks/00_cleaning_json.ipynb), and it resulted in 265 unique entries.
+
 ## How to Run the Project
 
 ### Prerequisites
 - Python 3.x
 - A virtual environment (`.venv`) with necessary libraries installed
 - OpenAI API key stored in a `.envrc` file
+
+### Technologies
+- [minsearch](https://github.com/alexeygrigorev/minsearch) - for full-text search
+- openAI - as an LLM
+- Flask - as the API interface
+- 
 
 ### Setup Instructions
 1. Clone the repository:
@@ -43,6 +52,43 @@ This project implements a **Retrieval-Augmented Generation (RAG)** system to enh
    ```bash
    python asu_online_assistant/app.py
    ```
+2. Then you can test the app via CURL:
+   ```bash
+    URL=http://localhost:5000
+    QUESTION="what do I need to enroll to online graduate classes?"
+    DATA='{
+        "question": "'${QUESTION}'"
+    }'
+
+    curl -X POST \
+        -H "Content-Type: application/json" \
+        -d "${DATA}" \
+        ${URL}/question
+   ```
+
+   You should see an answer that looks like this:
+   ```bash
+    {
+        "answer": "To enroll in online graduate classes, you need to apply to a graduate program at ASU Online, which you can do while in your final year of your undergraduate degree. The application will require your junior-senior GPA and you can submit unofficial transcripts initially. If accepted, you will later need to provide official transcripts. Ensure that you apply at least a month or two in advance of your chosen start date. Once admitted, you can log in to My ASU using your ASURITE ID and password to find and enroll in classes.",
+        "conversation_id": "bc30df4e-d7b1-47e0-ad35-b03c6fb2cc8d",
+        "question": "what do I need to enroll to online graduate classes?"
+    }
+   ```
+
+3. You can also send feedback via:
+    ```bash
+    ID="bc30df4e-d7b1-47e0-ad35-b03c6fb2cc8d"
+
+    FEEDBACK_DATA='{
+    "conversation_id": "'${ID}'",
+    "feedback": 1
+    }'
+
+    curl -X POST \
+        -H "Content-Type: application/json" \
+        -d "${FEEDBACK_DATA}" \
+        ${URL}/feedback
+    ```
 
 
 ### Misc

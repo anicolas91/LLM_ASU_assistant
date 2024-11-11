@@ -26,12 +26,12 @@ def handle_question():
 
     conversation_id = str(uuid.uuid4())
 
-    answer_data = rag(question)
+    answer = rag(question)
 
     result = {
         "conversation_id": conversation_id,
         "question": question,
-        "answer": answer_data["answer"],
+        "answer": answer,
     }
 
     # db.save_conversation(

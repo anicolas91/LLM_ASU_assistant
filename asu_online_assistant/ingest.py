@@ -5,7 +5,7 @@ This module has the function(s) to index the FAQ data into a search engine.
 import json
 import minsearch
 
-def load_index(clean_data_path='../data/cleaned_Data.json'):
+def load_index(clean_data_path='data/cleaned_data.json'):
     ''' 
     This function loads the cleaned-up data and indexes in the minsearch
     search engine
