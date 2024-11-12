@@ -99,7 +99,7 @@ jupyter notebook notebooks/01_rag_flow.ipynb
 
 ## Code
 
-The code for the application is inside the [asu_online_assistant](/asu_online_assistant/) folder.
+The code for the application is inside the [api](/api/) folder.
 
 It contains the following documents:
 - app.py - the Flask API, the main entrypoint to the application
@@ -115,14 +115,14 @@ This API can then be called to retrieve a RAG answer given a question fed throug
 
 ### Ingestion
 
-The ingestion script is in [ingest.py](asu_online_assistant/ingest.py).
+The ingestion script is in [ingest.py](api/ingest.py).
 
 Since we use an in-memory database, minsearch, as our knowledge base, we run the ingestion script at the startup of the application.
 
-The ingestion script is executed inside [rag.py](asu_online_assistant/rag.py) when we import it.
+The ingestion script is executed inside [rag.py](api/rag.py) when we import it.
 
 ## Evaluation
-To have a look at the code that is evaluating the system, you can check the latter portion in [01_rag_flow.ipynb](01_rag_flow.ipynb).
+To have a look at the code that is evaluating the system, you can check the latter portion in [01_rag_flow.ipynb](notebooks/01_rag_flow.ipynb).
 
 We are basically using the following for our RAG:
 - knowledge base: in-house search engine 'minsearch' fitted to ASU online FAQs.
@@ -154,7 +154,7 @@ We evaluated 256 ground truths using both gpt-4o-mini and gpt-4o.
 
 The results were as follows:
 
-![cosine-similarity](cosine-similarity-image.png)
+![cosine-similarity](/data/cosine-similarity-image.png)
 
 We see that the performance is relatively equivalent, with gpt-4o performing slightly better.
 
