@@ -154,7 +154,7 @@ We evaluated 256 ground truths using both gpt-4o-mini and gpt-4o.
 
 The results were as follows:
 
-![cosine-similarity](/data/cosine-similarity-image.png)
+![cosine-similarity](data/cosine-similarity-image.png)
 
 We see that the performance is relatively equivalent, with gpt-4o performing slightly better.
 
