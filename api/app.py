@@ -12,13 +12,17 @@ import os
 import sys
 import uuid
 from flask import Flask, request, jsonify
+from dotenv import load_dotenv
 
+load_dotenv() 
 
 sys.path.append(os.path.dirname(__file__))
 
 from rag import rag
 
+
 # import db
+
 
 app = Flask(__name__)
 
@@ -80,4 +84,6 @@ def handle_feedback():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host = '0.0.0.0', port=9696)
+    port_num = os.getenv('PORT', '9696')
+    app.run(debug=True, host = '0.0.0.0', port=int(port_num)) 
+
