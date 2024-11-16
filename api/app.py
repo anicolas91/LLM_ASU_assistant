@@ -3,13 +3,9 @@ Main ASU online assistant app.
 
 to run this app simply do:
 
-gunicorn --bind=0.0.0.0:9696 question:app
+gunicorn --bind=0.0.0.0:9696 api.app:app
 
-and then you can query via:
-
-python test.py
-
-or similar
+and then you can query.
 
 '''
 import os
