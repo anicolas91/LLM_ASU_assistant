@@ -50,11 +50,16 @@ The dataset used for this ASU online assistant comes from the [FAQ website](http
 ### Running it
 1. To run the Flask application, simply call:
    ```bash
-   python asu_online_assistant/app.py
+   python api/app.py
    ```
+   NOTE: this is for development only. For full production you'd have to run:
+   ```bash
+   gunicorn --bind=0.0.0.0:9696 api.app:app
+   ```
+
 2. Then you can test the app via CURL:
    ```bash
-    URL=http://localhost:5000
+    URL=http://localhost:9696
     QUESTION="what do I need to enroll to online graduate classes?"
     DATA='{
         "question": "'${QUESTION}'"
@@ -70,14 +75,14 @@ The dataset used for this ASU online assistant comes from the [FAQ website](http
    ```bash
     {
         "answer": "To enroll in online graduate classes, you need to apply to a graduate program at ASU Online, which you can do while in your final year of your undergraduate degree. The application will require your junior-senior GPA and you can submit unofficial transcripts initially. If accepted, you will later need to provide official transcripts. Ensure that you apply at least a month or two in advance of your chosen start date. Once admitted, you can log in to My ASU using your ASURITE ID and password to find and enroll in classes.",
-        "conversation_id": "bc30df4e-d7b1-47e0-ad35-b03c6fb2cc8d",
+        "conversation_id": "39002024-8fbb-4698-a2aa-c88dc80fbcd8",
         "question": "what do I need to enroll to online graduate classes?"
     }
    ```
 
 3. You can also send feedback via:
     ```bash
-    ID="bc30df4e-d7b1-47e0-ad35-b03c6fb2cc8d"
+    ID="39002024-8fbb-4698-a2aa-c88dc80fbcd8"
 
     FEEDBACK_DATA='{
     "conversation_id": "'${ID}'",

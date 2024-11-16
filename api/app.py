@@ -1,10 +1,26 @@
 '''
 Main ASU online assistant app.
-'''
 
+to run this app simply do:
+
+gunicorn --bind=0.0.0.0:9696 question:app
+
+and then you can query via:
+
+python test.py
+
+or similar
+
+'''
+import os
+import sys
 import uuid
-from rag import rag
 from flask import Flask, request, jsonify
+
+
+sys.path.append(os.path.dirname(__file__))
+
+from rag import rag
 
 # import db
 
@@ -68,4 +84,4 @@ def handle_feedback():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host = '0.0.0.0', port=9696)
