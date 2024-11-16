@@ -57,7 +57,7 @@ def build_prompt(query,search_results):
 
     # concatenate search results as one text string
     for doc in search_results:
-        context = context + f'section: {doc['section']} \nquestion: {doc['question']} \nanswer: {doc['text']}\n\n'
+        context = context + f"section: {doc['section']} \nquestion: {doc['question']} \nanswer: {doc['text']}\n\n"
 
     # fill out the prompt template
     prompt = prompt_template.format(question=query, context=context).strip()
