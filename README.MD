@@ -1,4 +1,5 @@
 # ASU Online assistant
+![banner](data/bannerAI.png)
 
 ## Problem Statement
 ASU Online provides a comprehensive set of FAQs, but users often struggle to find the most relevant answers quickly. Searching through static FAQ pages can be inefficient, leading to frustration and delays in accessing important information.
@@ -6,10 +7,17 @@ ASU Online provides a comprehensive set of FAQs, but users often struggle to fin
 ### Proposed Solution
 This project implements a **Retrieval-Augmented Generation (RAG)** system to enhance the user experience by allowing users to query ASU Online’s FAQs and receive accurate, concise responses. The system uses a search engine to index the FAQs, retrieves the top 10 relevant results, and then generates a response using a lightweight LLM (gpt-4o-mini and similar).
 
+The RAG system has been deployed via and [api](#back-end) and has a [website](#front-end) as the user interface.
+
+> The main website can be found here:
+>
+> **[https://llm-asu-assistant.vercel.app/](https://llm-asu-assistant.vercel.app/)**
+>
+
 ### Dataset
 The dataset used for this ASU online assistant comes from the [FAQ website](https://asuonline.asu.edu/about-us/faq). The data was scrubbed and cleaned using the jupyter file [00_cleaning_json.ipynb](notebooks/00_cleaning_json.ipynb), and it resulted in 265 unique entries.
 
-## How to Run the Project
+## How to run the project
 
 ### Prerequisites
 - Python 3.x
@@ -20,9 +28,10 @@ The dataset used for this ASU online assistant comes from the [FAQ website](http
 - [minsearch](https://github.com/alexeygrigorev/minsearch) - for full-text search
 - openAI - as an LLM
 - Flask - as the API interface
-- 
+- render - platform used to deploy the api for the back-end
+- vercel - platform used to deploy the website for the front-end
 
-### Setup Instructions
+### Setup instructions
 1. Clone the repository:
     ```bash
     git clone https://github.com/anicolas91/LLM_ASU_assistant.git
@@ -48,11 +57,7 @@ The dataset used for this ASU online assistant comes from the [FAQ website](http
 
 
 ### Running it
-1. To run the Flask application, simply call:
-   ```bash
-   python api/app.py
-   ```
-   NOTE: this is for development only. For full production you'd have to run:
+1. To run the application, simply call:
    ```bash
    gunicorn --bind=0.0.0.0:9696 api.app:app
    ```
@@ -95,6 +100,14 @@ The dataset used for this ASU online assistant comes from the [FAQ website](http
         ${URL}/feedback
     ```
 
+    Which should result in an answer that looks like this:
+    ```bash
+    {
+        "message": "Feedback received for conversation 39002024-8fbb-4698-a2aa-c88dc80fbcd8: 1"    
+    }
+    ```
+
+> NOTE: The feedback is still WIP and the initial bits are on the api, however we still have to add the request from the user in the front-end version and we have yet to set up the db for storage and monitoring.
 
 ### Misc
 To view/debug the whole pipeline for experimentation, basically run the main jupyter file:
@@ -107,18 +120,29 @@ jupyter notebook notebooks/01_rag_flow.ipynb
 The code for the application is inside the [api](/api/) folder.
 
 It contains the following documents:
-- app.py - the Flask API, the main entrypoint to the application
-- ingest.py - loading the data into the knowledge base
-- rag.py - the main RAG logic for building the retrieving the data and building the prompt
-- minsearch.py - an in-memory search engine
+- [app.py](api/app.py) - the Flask API, the main entrypoint to the application
+- [ingest.py](api/ingest.py) - loading the data into the knowledge base
+- [rag.py](api/rag.py) - the main RAG logic for building the retrieving the data and building the prompt
+- [minsearch.py](api/minsearch.py) - an in-memory search engine
 
 
-### Interface
+## Interface
 
+### Back-end
 We are using Flask for serving the application as an API.
+
 This API can then be called to retrieve a RAG answer given a question fed through front end.
 
-### Ingestion
+Right now the API has been deployed with render at [https://llm-asu-assistant.onrender.com](https://llm-asu-assistant.onrender.com)
+
+### Front-end
+The ASU assistant front end is now a website deployed live using vercel at [http://llm-asu-assistant.vercel.app](http://llm-asu-assistant.vercel.app).
+
+The repository is [llm-asu-assistant-frontend](https://github.com/anicolas91/llm-asu-assistant-frontend).
+
+Kudos to [Sihun Kim](https://github.com/bobbykim89) for the development of the front end!.
+
+## Ingestion
 
 The ingestion script is in [ingest.py](api/ingest.py).
 
@@ -166,4 +190,9 @@ We see that the performance is relatively equivalent, with gpt-4o performing sli
 In the interest of economy we will proceed with gpt-4o mini, since that one is ~10x cheaper than gpt-4o.
 
 ## Monitoring
+This is future work and is WIP. The main idea is to do the following:
+1. Get thumbs up/thumbs down from the user.
+2. Convert those thumbs up/thumbs down to a binary response 1 or -1.
+3. Send it to a database via the api's 'feedback' method.
+4. Monitor the feedback alongisde the question/answer given by the LLM.
 
